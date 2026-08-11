@@ -1,0 +1,30 @@
+# Beaumont Knights Baseball
+
+> Beaumont Knights Baseball is a 501(c)(3) non-profit youth travel baseball
+> club fielding 9U and 10U teams in Beaumont, California (Inland Empire).
+> The club is welcoming to first-time travel baseball families as well as
+> experienced players, and is run by volunteer parents and coaches.
+
+## Key facts
+
+- Divisions: 9U and 10U
+- Location: Beaumont, California
+- Registration fee: approximately $300–$450 per season (covers uniform,
+  league/field fees, umpires, and insurance)
+- Non-profit status: 501(c)(3)
+- Instagram: @beaumontknights_92223 (https://instagram.com/beaumontknights_92223)
+
+## Primary pages
+
+- Home: /
+- About / mission / non-profit info: /about
+- 9U team: /teams/9u
+- 10U team: /teams/10u
+- Schedule (tryouts, practices, games, tournaments): /schedule
+- Tryout info: /tryouts
+- Registration form: /signup
+- Sponsorship: /sponsors
+- Donations: /donate
+- News / announcements: /news
+- Frequently asked questions: /faq
+- Contact: /contact

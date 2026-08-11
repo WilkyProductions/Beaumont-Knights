@@ -1,0 +1,108 @@
+@import "tailwindcss";
+
+:root {
+  /* Brand palette — SITE-PLAN.md §2.1. The site is intentionally
+     dark-first (not a light/dark toggle) per the canopy artwork. */
+  --color-knight-black: #0a0a0b;
+  --color-knight-charcoal: #1a1a1c;
+  --color-knight-charcoal-light: #242427;
+  --color-knight-gold: #d8a02f;
+  --color-knight-gold-bright: #f4c24d;
+  --color-knight-gold-deep: #9c6f1e;
+  --color-knight-silver: #ededea;
+  --color-knight-steel: #59595c;
+  --color-knight-white: #ffffff;
+}
+
+@theme inline {
+  --color-knight-black: var(--color-knight-black);
+  --color-knight-charcoal: var(--color-knight-charcoal);
+  --color-knight-charcoal-light: var(--color-knight-charcoal-light);
+  --color-knight-gold: var(--color-knight-gold);
+  --color-knight-gold-bright: var(--color-knight-gold-bright);
+  --color-knight-gold-deep: var(--color-knight-gold-deep);
+  --color-knight-silver: var(--color-knight-silver);
+  --color-knight-steel: var(--color-knight-steel);
+  --color-knight-white: var(--color-knight-white);
+
+  --font-display: var(--font-anton);
+  --font-heading: var(--font-oswald);
+  --font-accent: var(--font-accent);
+  --font-body: var(--font-inter);
+}
+
+body {
+  background: var(--color-knight-black);
+  color: var(--color-knight-silver);
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+/* Metallic gold gradient text/fill — echoes the foil look in the crest. */
+.gold-gradient {
+  background-image: linear-gradient(
+    135deg,
+    var(--color-knight-gold-bright),
+    var(--color-knight-gold) 55%,
+    var(--color-knight-gold-deep)
+  );
+}
+
+.gold-gradient-text {
+  background-image: linear-gradient(
+    135deg,
+    var(--color-knight-gold-bright),
+    var(--color-knight-gold) 55%,
+    var(--color-knight-gold-deep)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* Angular clipped-corner tag — the canopy uses hard rectangular panels,
+   never soft pills, for badges/labels. */
+.tag {
+  clip-path: polygon(
+    7px 0,
+    100% 0,
+    100% calc(100% - 7px),
+    calc(100% - 7px) 100%,
+    0 100%,
+    0 7px
+  );
+  border-radius: 0;
+}
+
+/* Black plate with a gold outline + gold uppercase text — matches the
+   canopy's "BASEBALL" plate and Instagram handle bar. */
+.plate-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--color-knight-black);
+  border: 1.5px solid var(--color-knight-gold);
+  color: var(--color-knight-gold-bright);
+  padding: 0.35rem 1rem;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .animate-fade-up {
+    animation: fade-up 0.6s ease-out both;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
