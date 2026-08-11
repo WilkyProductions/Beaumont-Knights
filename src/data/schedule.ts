@@ -141,9 +141,12 @@ export const scheduleEvents: ScheduleEvent[] = [
   },
 ];
 
-export function getUpcomingEvents(count = 3): ScheduleEvent[] {
+export function getUpcomingEvents(
+  events: ScheduleEvent[] = scheduleEvents,
+  count = 3
+): ScheduleEvent[] {
   const now = Date.now();
-  return [...scheduleEvents]
+  return [...events]
     .filter((e) => new Date(`${e.date}T${e.startTime}`).getTime() >= now)
     .sort(
       (a, b) =>
@@ -153,8 +156,8 @@ export function getUpcomingEvents(count = 3): ScheduleEvent[] {
     .slice(0, count);
 }
 
-export function sortedEvents(): ScheduleEvent[] {
-  return [...scheduleEvents].sort(
+export function sortedEvents(events: ScheduleEvent[] = scheduleEvents): ScheduleEvent[] {
+  return [...events].sort(
     (a, b) =>
       new Date(`${a.date}T${a.startTime}`).getTime() -
       new Date(`${b.date}T${b.startTime}`).getTime()

@@ -3,8 +3,8 @@ import Container from "@/components/Container";
 import SectionHeading from "@/components/SectionHeading";
 import Button from "@/components/Button";
 import EventCard from "@/components/EventCard";
-import { scheduleEvents } from "@/data/schedule";
 import { siteConfig } from "@/data/site";
+import { getScheduleEvents } from "@/sanity/queries";
 
 export const metadata: Metadata = {
   title: "Tryouts",
@@ -19,8 +19,9 @@ const whatToBring = [
   "A positive attitude — that's what we're really looking for",
 ];
 
-export default function TryoutsPage() {
-  const tryoutEvents = scheduleEvents.filter((e) => e.type === "Tryout");
+export default async function TryoutsPage() {
+  const events = await getScheduleEvents();
+  const tryoutEvents = events.filter((e) => e.type === "Tryout");
 
   return (
     <Container className="py-12 sm:py-16">

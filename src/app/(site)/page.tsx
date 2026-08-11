@@ -8,7 +8,8 @@ import GrungeBackdrop from "@/components/GrungeBackdrop";
 import EmblemPattern from "@/components/EmblemPattern";
 import { siteConfig } from "@/data/site";
 import { getUpcomingEvents } from "@/data/schedule";
-import emblemFullSrc from "../../public/logo/emblem-full.png";
+import { getScheduleEvents } from "@/sanity/queries";
+import emblemFullSrc from "../../../public/logo/emblem-full.png";
 
 const valueCards = [
   {
@@ -29,8 +30,9 @@ const valueCards = [
   },
 ];
 
-export default function HomePage() {
-  const upcoming = getUpcomingEvents(3);
+export default async function HomePage() {
+  const events = await getScheduleEvents();
+  const upcoming = getUpcomingEvents(events, 3);
 
   return (
     <>

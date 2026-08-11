@@ -2,9 +2,6 @@ import type { Metadata } from "next";
 import { Anton, Oswald, Inter } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
-import Nav from "@/components/Nav";
-import Footer from "@/components/Footer";
-import MobileCTA from "@/components/MobileCTA";
 import { siteConfig } from "@/data/site";
 import { organizationJsonLd } from "@/lib/jsonld";
 
@@ -65,6 +62,9 @@ export const metadata: Metadata = {
   },
 };
 
+// Minimal root layout — the actual site chrome (Nav/Footer/MobileCTA) lives
+// in app/(site)/layout.tsx so that /studio (the embedded Sanity Studio,
+// which needs the full viewport and its own UI) doesn't inherit it.
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -78,12 +78,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd()) }}
         />
       </head>
-      <body className="min-h-screen antialiased">
-        <Nav />
-        <main>{children}</main>
-        <Footer />
-        <MobileCTA />
-      </body>
+      <body className="min-h-screen antialiased">{children}</body>
     </html>
   );
 }

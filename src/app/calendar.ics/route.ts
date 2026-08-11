@@ -1,8 +1,9 @@
-import { scheduleEvents } from "@/data/schedule";
+import { getScheduleEvents } from "@/sanity/queries";
 import { buildIcsCalendar } from "@/lib/ics";
 
-export function GET() {
-  const body = buildIcsCalendar(scheduleEvents);
+export async function GET() {
+  const events = await getScheduleEvents();
+  const body = buildIcsCalendar(events);
   return new Response(body, {
     headers: {
       "Content-Type": "text/calendar; charset=utf-8",

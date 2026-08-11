@@ -4,7 +4,7 @@ import Container from "@/components/Container";
 import SectionHeading from "@/components/SectionHeading";
 import { siteConfig } from "@/data/site";
 import { boardMembers } from "@/data/board";
-import canopyPhoto from "../../../public/logo/canopy.jpg";
+import canopyPhoto from "../../../../public/logo/canopy.jpg";
 
 export const metadata: Metadata = {
   title: "About Us",

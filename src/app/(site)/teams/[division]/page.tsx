@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import Container from "@/components/Container";
 import SectionHeading from "@/components/SectionHeading";
 import Button from "@/components/Button";
-import { scheduleEvents } from "@/data/schedule";
+import { getScheduleEvents, getRosterPlayers } from "@/sanity/queries";
+import { urlFor } from "@/sanity/image";
 
 const divisions = {
   "9u": {
@@ -50,7 +52,12 @@ export default async function TeamPage({
   const division = divisions[key];
   if (!division) notFound();
 
-  const teamEvents = scheduleEvents.filter(
+  const [events, roster] = await Promise.all([
+    getScheduleEvents(),
+    getRosterPlayers(division.label),
+  ]);
+
+  const teamEvents = events.filter(
     (e) => e.division === division.label || e.division === "Both"
   );
 
@@ -95,10 +102,39 @@ export default async function TeamPage({
         <h3 className="font-heading text-sm uppercase tracking-wide text-knight-gold">
           Roster
         </h3>
-        <p className="mt-2 text-sm text-knight-silver/70">
-          Roster will be posted here once tryouts are complete and teams are
-          finalized.
-        </p>
+        {roster.length > 0 ? (
+          <ul className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
+            {roster.map((player) => (
+              <li key={player.id} className="text-center">
+                <div className="mx-auto h-16 w-16 overflow-hidden rounded-full border border-knight-gold/40 bg-knight-black">
+                  {player.photo && (
+                    <Image
+                      src={urlFor(player.photo).width(128).height(128).fit("crop").url()}
+                      alt={player.name}
+                      width={64}
+                      height={64}
+                      className="h-full w-full object-cover"
+                    />
+                  )}
+                </div>
+                <p className="mt-2 text-sm font-semibold text-knight-silver">
+                  {player.jerseyNumber && (
+                    <span className="text-knight-gold-bright">#{player.jerseyNumber} </span>
+                  )}
+                  {player.name}
+                </p>
+                {player.position && (
+                  <p className="text-xs text-knight-silver/60">{player.position}</p>
+                )}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="mt-2 text-sm text-knight-silver/70">
+            Roster will be posted here once tryouts are complete and teams are
+            finalized.
+          </p>
+        )}
       </div>
 
       <div className="mt-8">

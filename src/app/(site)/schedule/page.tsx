@@ -4,6 +4,8 @@ import Container from "@/components/Container";
 import SectionHeading from "@/components/SectionHeading";
 import { sortedEvents, type Division, type EventType } from "@/data/schedule";
 import { eventJsonLd } from "@/lib/jsonld";
+import { getScheduleEvents } from "@/sanity/queries";
+import { isSanityConfigured } from "@/sanity/env";
 import ScheduleView from "./ScheduleView";
 
 export const metadata: Metadata = {
@@ -39,7 +41,8 @@ export default async function SchedulePage({
   const division = (divisionParam as Division | undefined) ?? "All";
   const type = (typeParam as EventType | undefined) ?? "All";
 
-  const events = sortedEvents().filter((event) => {
+  const allEvents = await getScheduleEvents();
+  const events = sortedEvents(allEvents).filter((event) => {
     const divisionMatch =
       division === "All" || event.division === division || event.division === "Both";
     const typeMatch = type === "All" || event.type === type;
@@ -58,9 +61,9 @@ export default async function SchedulePage({
       <SectionHeading eyebrow="Never Miss a Game" title="Schedule" />
 
       <p className="mt-4 max-w-2xl text-sm text-knight-silver/70">
-        Placeholder season calendar — dates below will be replaced once the
-        board confirms the real season schedule. Subscribe below to get every
-        update automatically on your phone.
+        {isSanityConfigured
+          ? "Subscribe below to get every update automatically on your phone."
+          : "Placeholder season calendar — dates below will be replaced once the board confirms the real season schedule. Subscribe below to get every update automatically on your phone."}
       </p>
 
       <div className="mt-4 flex flex-wrap gap-3">

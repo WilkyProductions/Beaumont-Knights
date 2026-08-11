@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { scheduleEvents } from "@/data/schedule";
+import { getScheduleEvents } from "@/sanity/queries";
 import { buildSingleEventIcs } from "@/lib/ics";
 
 export async function GET(
@@ -7,7 +7,8 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
-  const event = scheduleEvents.find((e) => e.id === id);
+  const events = await getScheduleEvents();
+  const event = events.find((e) => e.id === id);
   if (!event) notFound();
 
   const body = buildSingleEventIcs(event);
